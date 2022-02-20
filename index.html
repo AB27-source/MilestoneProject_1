@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="./DarkMode.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Input Game Name</title>
+</head>
+<body>
+    <!-- Container -->
+    <div class="container-fluid mx-auto customFont">
+      <!-- Game Title -->
+      <div class="navbar-header">
+      <nav class="navbar navbar-expand-lg navbar-light" id="navToggle">
+            <a class="navbar-brand" href="#">GAME TITLE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+    <!-- Help and Dark Mode Toggle -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav navbar-right"> 
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">HELP</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a>
+            <div class=" mt-3 my-2">
+                <input type="checkbox" class="styleCheckbox" id="styleChk" onclick="save()">
+                <label class="styleLabel" for="styleChk"> 
+                    <l class="fas fa-moon"></l>
+                    <l class="fas fa-sun"></l>
+                    <div class="ball"></div>
+                </label>
+            </div>
+          </a>
+        </li>
+      </ul>  
+    </div>
+    <!-- Game Container -->
+      <div id="gameContainer">
+        <canvas id="gameBox" width="1000" height="740"></canvas>
+        <!-- <img src="./assets/maps/brick.png" id="platform" alt="mario brick image"> -->
+      </div>
+    </div>
+
+    <script src="/themeswitch.js"></script>
+    <script src="/app.js" type="module"></script>
+</body>
+</html>

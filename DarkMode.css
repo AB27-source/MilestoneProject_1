@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #fafafa;
+    display: flex;
+    transition: background 0.2s linear;
+}
+
+body.dark {
+    background-color: #292c35;
+}
+
+body.dark p{
+    color: #fff;
+}
+
+@font-face {
+    font-family: "Retro Game Font";
+    src: url(./assets/Retro\ Gaming.ttf);
+}
+
+
+.customFont{
+    font-family: "Retro Game Font";
+}
+
+
+.styleCheckbox{
+    opacity: 0;
+    position: absolute;
+}
+
+.styleCheckbox:checked + .styleLabel .ball{
+    transform: translateX(24px);
+}
+
+.styleLabel{
+    background-color: #111;
+    display: flex;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    height: 26px;
+    width: 50px;
+    position: relative;
+}
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun{
+    color: #f39c12;
+}
+
+.ball{
+   width: 22px;
+   height: 22px;
+   border-radius: 50%;
+   background-color: #fff;
+   position: absolute;
+   top: 2px;
+   left: 2px;
+   transition: transform 0.2s linear;
+}
