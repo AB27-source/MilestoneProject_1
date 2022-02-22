@@ -57,24 +57,41 @@ class Player{
 addEventListener('keydown', ({key})=>{
     if (key == ' '){
         player.speed.y -= 5;            //subtracting player.speed.y by 5 and storing into player.spped.y
+        player.speed.x = 0.3;   //starting speed of object
     }
 })
 // event listner for when user lets go of space; object goes up by 1
 addEventListener('keyup', ({key})=>{
     if (key == ' ')
         player.speed.y -= 1;           //subtracting player.speed.y by 1 and storing into player.spped.y
-})
+    })
 
+const tubeBottom = createImage('./assets/maps/tube.png');
+const tubeTop = createImage('./assets/maps/tubeUpsideDown.png');
 
 //class for tubes
 class Tubes{
-    constructor(){
+    constructor({x, y, img}){
         this.position = {
-            x: 0,
-            y: 0
+            x,
+            y
         }
+        this.img = img;
+        this.width = img.width;
+        this.height = img.height;
+    }
+    draw(){
+        context.drawImage(this.img, this.position.x, this.position.y)
     }
 }
+
+
+const tubes = [new Tubes({x: 300, y: 400, img: tubeBottom})];
+tubes.push(new Tubes({x: 300, y: -220, img: tubeTop}))
+tubes.push(new Tubes({x: 300*2.5, y: 400, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*2.5, y: -180, img: tubeTop}));
+
+
 
 // calling player class
 const player = new Player();
@@ -83,7 +100,13 @@ function animate(){
     requestAnimationFrame(animate);     // recursively calling animate function
     context.clearRect(0,0,canvas.width,canvas.height);   //clears past drawn objects on canvas
     context.drawImage(gothamCity,0,0);         //adding background to canvas
-    player.speed.x = 0.3;   //starting speed of object
+    
+    
+    //drawing tubes
+    tubes.forEach(tube => {
+        tube.draw();
+    })
+    
     player.update();    //calling update function in class Player
 }
 animate();
