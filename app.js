@@ -130,7 +130,13 @@ function drawScore() {
     context.font = "30px Retro Game Font"
     context.fillStyle = "white";
     context.fillText("Score: "+ score, 430, 60);
-  }
+}
+function drawMessage() {
+    context.font = "80px Retro Game Font"
+    context.fillStyle = "Red";
+    context.fillText("You Lose!", 300, 300);
+}
+
 
 function animate(){
     requestAnimationFrame(animate);     // recursively calling animate function
@@ -164,6 +170,16 @@ function animate(){
             })
         }
     }
+    //collision detection refrenced mdn "2d collision detection";
+    tubes.forEach(tube => {
+        if (player.position.y + player.height <= tube.position.y && player.position.y + player.height + player.speed.y >= tube.position.y && player.position.x + player.width >= tube.position.x && player.position.x <= tube.position.x + tube.width){
+            player.speed.y = 0;
+            player.speed.x = 0;
+            keyPressed = false;
+            drawMessage();
+        }
+        
+    })
     drawScore();
 }
 
