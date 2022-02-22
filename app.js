@@ -53,22 +53,35 @@ class Player{
     }
 }
 
+var keyPressed = false;
+
+
 // event listner for when user presses space; object goes up by 5
 addEventListener('keydown', ({key})=>{
     if (key == ' '){
         player.speed.y -= 5;            //subtracting player.speed.y by 5 and storing into player.spped.y
-        player.speed.x = 0.3;   //starting speed of object
+        //player.speed.x = 0.3;   //starting speed of object
+        // keyPressed = true;
+    }
+    if (key == 'd'){
+        player.speed.x = 2;
+        keyPressed = true;
     }
 })
 // event listner for when user lets go of space; object goes up by 1
 addEventListener('keyup', ({key})=>{
-    if (key == ' ')
+    if (key == ' '){
         player.speed.y -= 1;           //subtracting player.speed.y by 1 and storing into player.spped.y
+    }
+    if (key == 'd'){
+        player.speed.x = 0;
+        keyPressed = false;
+    }
     })
 
 const tubeBottom = createImage('./assets/maps/tube.png');
 const tubeTop = createImage('./assets/maps/tubeUpsideDown.png');
-
+const batSignal = createImage('./assets/maps/batSignal.png')
 //class for tubes
 class Tubes{
     constructor({x, y, img}){
@@ -85,28 +98,63 @@ class Tubes{
     }
 }
 
-
+// Creating tubes
 const tubes = [new Tubes({x: 300, y: 400, img: tubeBottom})];
 tubes.push(new Tubes({x: 300, y: -220, img: tubeTop}))
-tubes.push(new Tubes({x: 300*2.5, y: 400, img: tubeBottom}));
-tubes.push(new Tubes({x: 300*2.5, y: -180, img: tubeTop}));
+tubes.push(new Tubes({x: 300*2, y: 400, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*2, y: -180, img: tubeTop}));
+tubes.push(new Tubes({x: 300*3, y: 340, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*3, y: -240, img: tubeTop}));
+tubes.push(new Tubes({x: 300*4, y: 440, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*4, y: -170, img: tubeTop}));
+tubes.push(new Tubes({x: 300*5, y: 440, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*5, y: -170, img: tubeTop}));
+tubes.push(new Tubes({x: 300*6, y: 490, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*6, y: -100, img: tubeTop}));
+tubes.push(new Tubes({x: 300*7, y: 490, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*7, y: -100, img: tubeTop}));
+tubes.push(new Tubes({x: 300*8, y: 400, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*8, y: -180, img: tubeTop}));
+tubes.push(new Tubes({x: 300*9, y: 470, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*9, y: -120, img: tubeTop}));
+tubes.push(new Tubes({x: 300*10, y: 500, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*10, y: -100, img: tubeTop}));
+tubes.push(new Tubes({x: 300*11.2, y: 500, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*11.25, y: 210, img: batSignal}));
 
 
 
 // calling player class
 const player = new Player();
 
+var score = 0;
+
 function animate(){
     requestAnimationFrame(animate);     // recursively calling animate function
     context.clearRect(0,0,canvas.width,canvas.height);   //clears past drawn objects on canvas
     context.drawImage(gothamCity,0,0);         //adding background to canvas
     
-    
+    player.update();    //calling update function in class Player
+
     //drawing tubes
     tubes.forEach(tube => {
         tube.draw();
     })
-    
-    player.update();    //calling update function in class Player
+
+    if (keyPressed == true && player.position.x < 250){
+        player.speed.x = 2;   //starting speed of object
+    }
+    else{
+        player.speed.x = 0;
+        if (keyPressed == true){
+            score++;
+            tubes.forEach(tube => {
+                tube.position.x -= 2;
+            })
+
+        }
+    }
+
 }
+// console.log(`Score: ${score}`)
 animate();

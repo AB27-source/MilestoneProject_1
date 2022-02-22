@@ -3,8 +3,9 @@
 }
 
 .gameContainer canvas{
-    background-image: url('./assets/maps/gothamcity.jpg');
     position: absolute;
     left: 0;
     top: 0;
+    font-family: "Retro Game Font";
+    font-size: 16px;
 }
