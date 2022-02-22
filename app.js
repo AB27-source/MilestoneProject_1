@@ -59,12 +59,12 @@ var keyPressed = false;
 // event listner for when user presses space; object goes up by 5
 addEventListener('keydown', ({key})=>{
     if (key == ' '){
-        player.speed.y -= 5;            //subtracting player.speed.y by 5 and storing into player.spped.y
+        player.speed.y -= 4;            //subtracting player.speed.y by 5 and storing into player.spped.y
         //player.speed.x = 0.3;   //starting speed of object
         // keyPressed = true;
     }
     if (key == 'd'){
-        player.speed.x = 2;
+        // player.speed.x = 2;
         keyPressed = true;
     }
 })
@@ -140,6 +140,13 @@ function animate(){
     tubes.forEach(tube => {
         tube.draw();
     })
+    tubes.forEach(tube => {
+        if(tube.position.x == 165){
+            player.speed.x = 0;
+            player.speed.y = 0;
+            keyPressed = false;
+        }
+    })
 
     if (keyPressed == true && player.position.x < 250){
         player.speed.x = 2;   //starting speed of object
@@ -150,11 +157,10 @@ function animate(){
             score++;
             tubes.forEach(tube => {
                 tube.position.x -= 2;
+                console.log(tube.position.x)
             })
-
         }
     }
-
 }
-// console.log(`Score: ${score}`)
+
 animate();
