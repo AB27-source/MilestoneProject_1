@@ -7,5 +7,6 @@
     left: 0;
     top: 0;
     font-family: "Retro Game Font";
-    font-size: 16px;
+    src: url(./assets/Retro\ Gaming.ttf);
+    font-size: 30px;
 }

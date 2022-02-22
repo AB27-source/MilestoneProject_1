@@ -60,11 +60,8 @@ var keyPressed = false;
 addEventListener('keydown', ({key})=>{
     if (key == ' '){
         player.speed.y -= 4;            //subtracting player.speed.y by 5 and storing into player.spped.y
-        //player.speed.x = 0.3;   //starting speed of object
-        // keyPressed = true;
     }
     if (key == 'd'){
-        // player.speed.x = 2;
         keyPressed = true;
     }
 })
@@ -74,7 +71,7 @@ addEventListener('keyup', ({key})=>{
         player.speed.y -= 1;           //subtracting player.speed.y by 1 and storing into player.spped.y
     }
     if (key == 'd'){
-        player.speed.x = 0;
+        player.speed.x = 0;            //player speed set to 0 when user lets go of keypress
         keyPressed = false;
     }
     })
@@ -129,6 +126,12 @@ const player = new Player();
 
 var score = 0;
 
+function drawScore() {
+    context.font = "30px Retro Game Font"
+    context.fillStyle = "white";
+    context.fillText("Score: "+ score, 430, 60);
+  }
+
 function animate(){
     requestAnimationFrame(animate);     // recursively calling animate function
     context.clearRect(0,0,canvas.width,canvas.height);   //clears past drawn objects on canvas
@@ -140,6 +143,7 @@ function animate(){
     tubes.forEach(tube => {
         tube.draw();
     })
+    // Once user reaches end, set player speed = 0;
     tubes.forEach(tube => {
         if(tube.position.x == 165){
             player.speed.x = 0;
@@ -149,7 +153,7 @@ function animate(){
     })
 
     if (keyPressed == true && player.position.x < 250){
-        player.speed.x = 2;   //starting speed of object
+        player.speed.x = 1;   //starting speed of object
     }
     else{
         player.speed.x = 0;
@@ -157,10 +161,10 @@ function animate(){
             score++;
             tubes.forEach(tube => {
                 tube.position.x -= 2;
-                console.log(tube.position.x)
             })
         }
     }
+    drawScore();
 }
 
 animate();
