@@ -125,16 +125,27 @@ tubes.push(new Tubes({x: 300*11.25, y: 210, img: batSignal}));
 const player = new Player();
 
 var score = 0;
+var highScore = localStorage.getItem("highScore");
 
+function drawHighScore() {
+    context.font = "20px Retro Game Font"
+    context.fillStyle = "white";
+    context.fillText("High Score: "+ highScore, 790, 30);
+}
 function drawScore() {
     context.font = "30px Retro Game Font"
     context.fillStyle = "white";
     context.fillText("Score: "+ score, 430, 60);
 }
-function drawMessage() {
+function drawLossMessage() {
     context.font = "80px Retro Game Font"
     context.fillStyle = "Red";
     context.fillText("You Lose!", 300, 300);
+}
+function drawWinMessage() {
+    context.font = "80px Retro Game Font"
+    context.fillStyle = "Blue";
+    context.fillText("You Win!", 300, 300);
 }
 
 
@@ -152,6 +163,7 @@ function animate(){
     // Once user reaches end, set player speed = 0;
     tubes.forEach(tube => {
         if(tube.position.x == 165){
+            drawWinMessage()
             player.speed.x = 0;
             player.speed.y = 0;
             keyPressed = false;
@@ -165,6 +177,15 @@ function animate(){
         player.speed.x = 0;
         if (keyPressed == true){
             score++;
+            if(highScore !== null){
+                if (score > highScore) {
+                    localStorage.setItem("highScore", score);
+                }
+            }
+            else{
+                localStorage.setItem("highScore", score);
+            }
+            
             tubes.forEach(tube => {
                 tube.position.x -= 2;
             })
@@ -173,14 +194,15 @@ function animate(){
     //collision detection refrenced mdn "2d collision detection";
     tubes.forEach(tube => {
         if (player.position.y + player.height <= tube.position.y && player.position.y + player.height + player.speed.y >= tube.position.y && player.position.x + player.width >= tube.position.x && player.position.x <= tube.position.x + tube.width){
+            drawLossMessage();
             player.speed.y = 0;
             player.speed.x = 0;
             keyPressed = false;
-            drawMessage();
         }
         
     })
     drawScore();
+    drawHighScore();
 }
 
 animate();
