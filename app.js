@@ -62,6 +62,7 @@ addEventListener('keydown', ({key})=>{
         player.speed.y -= 4;            //subtracting player.speed.y by 5 and storing into player.spped.y
     }
     if (key == 'd'){
+        player.speed.x = 1;
         keyPressed = true;
     }
 })
@@ -110,8 +111,8 @@ class WinBeacon{
 }
 
 // Creating tubes
-const tubes = [new Tubes({x: 300, y: 400, img: tubeBottom})];
-tubes.push(new Tubes({x: 300, y: -220, img: tubeTop}))
+const tubes = [new Tubes({x: 320, y: 400, img: tubeBottom})];
+tubes.push(new Tubes({x: 320, y: -220, img: tubeTop}))
 tubes.push(new Tubes({x: 300*2, y: 400, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*2, y: -180, img: tubeTop}));
 tubes.push(new Tubes({x: 300*3, y: 340, img: tubeBottom}));

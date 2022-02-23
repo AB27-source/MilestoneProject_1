@@ -66,3 +66,9 @@ body.dark p{
    left: 2px;
    transition: transform 0.2s linear;
 }
+
+.button{
+    border: none;
+    text-align: center;
+    font-family: "Retro Game Font";
+}
