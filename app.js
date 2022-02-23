@@ -7,7 +7,7 @@ function createImage(source){
     return image;
 }
 
-const batman = createImage('./assets/Character/batman.png')
+const batWing = createImage('./assets/Character/batwing.png')
 const gothamCity = createImage('./assets/maps/gothamcity.jpg');
 
 // gothamCity.onload = function(){
@@ -28,12 +28,12 @@ class Player{
             x: 0,
             y: 2
         }
-        this.width = 30;
-        this.height = 30;
+        this.image = batWing;
+        this.width = batWing.width;
+        this.height = batWing.height;
     }
     draw(){
-        context.fillStyle = 'red'; // setting rectangle to color red
-        context.fillRect(this.position.x, this.position.y, this.width, this.height) //assiging constructor values to rectangle
+        context.drawImage(this.image, this.position.x, this.position.y)
     }
     // updates player position
     update(){
@@ -109,7 +109,7 @@ tubes.push(new Tubes({x: 300*5, y: -170, img: tubeTop}));
 tubes.push(new Tubes({x: 300*6, y: 490, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*6, y: -100, img: tubeTop}));
 tubes.push(new Tubes({x: 300*7, y: 490, img: tubeBottom}));
-tubes.push(new Tubes({x: 300*7, y: -100, img: tubeTop}));
+tubes.push(new Tubes({x: 300*7, y: -90, img: tubeTop}));
 tubes.push(new Tubes({x: 300*8, y: 400, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*8, y: -180, img: tubeTop}));
 tubes.push(new Tubes({x: 300*9, y: 470, img: tubeBottom}));
