@@ -62,7 +62,7 @@ addEventListener('keydown', ({key})=>{
         player.speed.y -= 4;            //subtracting player.speed.y by 5 and storing into player.spped.y
     }
     if (key == 'd'){
-        player.speed.x = 1;
+        // player.speed.x = 1;
         keyPressed = true;
     }
 })
