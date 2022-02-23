@@ -7,7 +7,7 @@ function createImage(source){
     return image;
 }
 
-const batWing = createImage('./assets/Character/batwing.png')
+const batMobile = createImage('./assets/Character/batmobile.png')
 const gothamCity = createImage('./assets/maps/gothamcity.jpg');
 
 // gothamCity.onload = function(){
@@ -28,9 +28,9 @@ class Player{
             x: 0,
             y: 2
         }
-        this.image = batWing;
-        this.width = batWing.width;
-        this.height = batWing.height;
+        this.image = batMobile;
+        this.width = batMobile.width;
+        this.height = batMobile.height-5;
     }
     draw(){
         context.drawImage(this.image, this.position.x, this.position.y)
@@ -88,7 +88,21 @@ class Tubes{
         }
         this.img = img;
         this.width = img.width;
-        this.height = img.height;
+        this.height = img.height-20;
+    }
+    draw(){
+        context.drawImage(this.img, this.position.x, this.position.y)
+    }
+}
+class WinBeacon{
+    constructor({x, y, img}){
+        this.position = {
+            x,
+            y
+        }
+        this.img = img;
+        this.width = img.width;
+        this.height = img.height-20;
     }
     draw(){
         context.drawImage(this.img, this.position.x, this.position.y)
@@ -107,8 +121,8 @@ tubes.push(new Tubes({x: 300*4, y: -170, img: tubeTop}));
 tubes.push(new Tubes({x: 300*5, y: 440, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*5, y: -170, img: tubeTop}));
 tubes.push(new Tubes({x: 300*6, y: 490, img: tubeBottom}));
-tubes.push(new Tubes({x: 300*6, y: -100, img: tubeTop}));
-tubes.push(new Tubes({x: 300*7, y: 490, img: tubeBottom}));
+tubes.push(new Tubes({x: 300*6, y: -110, img: tubeTop}));
+tubes.push(new Tubes({x: 300*7, y: 510, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*7, y: -90, img: tubeTop}));
 tubes.push(new Tubes({x: 300*8, y: 400, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*8, y: -180, img: tubeTop}));
@@ -117,7 +131,8 @@ tubes.push(new Tubes({x: 300*9, y: -120, img: tubeTop}));
 tubes.push(new Tubes({x: 300*10, y: 500, img: tubeBottom}));
 tubes.push(new Tubes({x: 300*10, y: -100, img: tubeTop}));
 tubes.push(new Tubes({x: 300*11.2, y: 500, img: tubeBottom}));
-tubes.push(new Tubes({x: 300*11.25, y: 210, img: batSignal}));
+
+const winBeacon = new WinBeacon({x: 300*11.25, y: 210, img: batSignal});
 
 
 
@@ -161,16 +176,23 @@ function animate(){
         tube.draw();
     })
     // Once user reaches end, set player speed = 0;
-    tubes.forEach(tube => {
-        if(tube.position.x == 165){
-            drawWinMessage()
-            player.speed.x = 0;
-            player.speed.y = 0;
-            keyPressed = false;
-        }
-    })
+    // tubes.forEach(tube => {
+    //     if(tube.position.x == 165){
+    //         drawWinMessage()
+    //         player.speed.x = 0;
+    //         player.speed.y = 0;
+    //         keyPressed = false;
+    //     }
+    // })
+    winBeacon.draw();
+    if(winBeacon.position.x == 135){
+        drawWinMessage()
+        player.speed.x = 0;
+        player.speed.y = 0;
+        keyPressed = false;
+    }
 
-    if (keyPressed == true && player.position.x < 250){
+    if (keyPressed == true && player.position.x < 180){
         player.speed.x = 1;   //starting speed of object
     }
     else{
@@ -189,17 +211,20 @@ function animate(){
             tubes.forEach(tube => {
                 tube.position.x -= 2;
             })
+            winBeacon.position.x -= 2;
         }
     }
     //collision detection refrenced mdn "2d collision detection";
     tubes.forEach(tube => {
-        if (player.position.y + player.height <= tube.position.y && player.position.y + player.height + player.speed.y >= tube.position.y && player.position.x + player.width >= tube.position.x && player.position.x <= tube.position.x + tube.width){
+        if (tube.position.x < player.position.x + player.width &&
+        tube.position.x + tube.width > player.position.x &&
+        tube.position.y < player.position.y + player.height &&
+        tube.height + tube.position.y > player.position.y) {
             drawLossMessage();
             player.speed.y = 0;
             player.speed.x = 0;
             keyPressed = false;
         }
-        
     })
     drawScore();
     drawHighScore();
